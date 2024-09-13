@@ -1,4 +1,4 @@
-package services
+package redisServices
 
 import (
 	"context"

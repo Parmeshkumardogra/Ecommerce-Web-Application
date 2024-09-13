@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"github.com/BMS/config"
-	"github.com/BMS/services"
+	"github.com/BMS/services/mongoServices"
+	"github.com/BMS/services/redisServices"
 	"github.com/BMS/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -28,7 +29,7 @@ func LoginToSendOTP(ctx *gin.Context) {
 	//Creating filter query payload to pass as a parameter in findone service
 	filterQueryPayload := bson.M{"email": loginCredential.Email}
 	var userDetails bson.M
-	userDetails, err = services.FindOneMethod(config.Config.CollectionName.MD01, filterQueryPayload)
+	userDetails, err = mongoServices.FindOneMethod(config.Config.CollectionName.MD01, filterQueryPayload)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"msg": "internal server error"})
 		return
@@ -49,9 +50,9 @@ func LoginToSendOTP(ctx *gin.Context) {
 	}
 
 	//Generate OTP
-	otp := services.GenerateOTP()
+	otp := utils.GenerateOTP()
 	
-	services.SetOTPInRedis(loginCredential.Email, otp, 5*time.Minute)
+	redisServices.SetOTPInRedis(loginCredential.Email, otp, 5*time.Minute)
 
 	var jwtShortToken string
 	jwtShortToken, err = utils.GenerateShortToken(loginCredential.Email)

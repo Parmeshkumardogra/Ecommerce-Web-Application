@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/BMS/services"
+	"github.com/BMS/services/redisServices"
 	"github.com/BMS/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +21,7 @@ func VerifyOTP(ctx *gin.Context) {
 		return
 	}
 	var userOTP string
-	userOTP,err = services.GetOTPFromRedis(auth.Email);
+	userOTP,err = redisServices.GetOTPFromRedis(auth.Email);
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

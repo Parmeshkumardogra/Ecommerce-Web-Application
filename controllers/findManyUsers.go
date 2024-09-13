@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/BMS/models"
-	"github.com/BMS/services"
+	"github.com/BMS/services/mongoServices"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -20,8 +20,8 @@ func FindManyUsers(ctx *gin.Context) {
 	}
 	var results []bson.M
 	
-	filterQueryPayload := bson.M{"firstName": request.FirstName}
-	results, err = services.FindMethod("userData", filterQueryPayload)
+	filterQueryPayload := bson.M{"email": request.Email}
+	results, err = mongoServices.FindMethod("userData", filterQueryPayload)
 	
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"msg": "error occured in finding data", "error": err.Error()})
