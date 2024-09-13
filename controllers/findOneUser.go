@@ -3,9 +3,9 @@ package controllers
 import (
 	"log"
 	"net/http"
-
+	"github.com/BMS/config"
 	"github.com/BMS/models"
-	"github.com/BMS/services"
+	"github.com/BMS/services/mongoServices"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -14,14 +14,14 @@ import (
 func FindOne(ctx *gin.Context){
 	var request models.FindUserRequest;
 	err := ctx.ShouldBindJSON(&request);
-	log.Println("Requested Payload ",request.FirstName);
+	log.Println("Requested Payload ",request.Email);
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"msg":"invalid payload", "error":err.Error()});
 		return
 	}
-	filterQueryPayload := bson.M{"firstName":request.FirstName};
+	filterQueryPayload := bson.M{"email":request.Email};
 	var result bson.M;
-	result, err = services.FindOneMethod("userData",filterQueryPayload);
+	result, err = mongoServices.FindOneMethod(config.Config.CollectionName.MD01,filterQueryPayload);
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError,gin.H{"error":"internal server error"});
 		return;

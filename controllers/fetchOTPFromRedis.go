@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/BMS/services"
+	"github.com/BMS/services/redisServices"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +18,7 @@ func FetchOTPFromRedis(ctx *gin.Context){
 		return;
 	}
 	var userOTP string;
-	userOTP,err = services.GetOTPFromRedis(userID.Email);
+	userOTP,err = redisServices.GetOTPFromRedis(userID.Email);
 	if err !=nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError,gin.H{"error":err.Error()});
 		return;

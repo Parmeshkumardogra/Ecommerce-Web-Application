@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"github.com/BMS/models"
-	"github.com/BMS/services"
+	"github.com/BMS/services/mongoServices"
 	"github.com/gin-gonic/gin"
 )
 func MultipleUser(ctx *gin.Context){
@@ -17,7 +17,7 @@ func MultipleUser(ctx *gin.Context){
 	for _, user := range users{
 		data = append(data,user);
 	}
-	err = services.InsertManyMethod("userData", data);
+	err = mongoServices.InsertManyMethod("userData", data);
 	if err != nil{
 		ctx.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"msg":"invalid data","error":err.Error()})
 		return;

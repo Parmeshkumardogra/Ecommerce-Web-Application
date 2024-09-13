@@ -23,7 +23,7 @@ type Account struct{
 
 type Customer struct{
 	ID primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	CustomerID string `bson:"customerID" json:"customerID"`
+	// CustomerID string `bson:"customerID" json:"customerID"`
 	FirstName string `bson:"firstName" json:"firstName"`
 	LastName string `bson:"lastName" json:"lastName"`
 	Email string `bson:"email" json:"email" binding:"required"`
@@ -31,7 +31,9 @@ type Customer struct{
 	Address Address `bson:"address" json:"address"`
 	DateOfBirth time.Time `bson:"dataOfBirth" json:"dateOfBirth"`
 	PasswordHash string `bson:"passwordHash" json:"password" binding:"required"`
-	PasswordSalt string `bson:"passwordSalt" json:"passwordSalt"`
+	// PasswordSalt string `bson:"passwordSalt" json:"passwordSalt"`
 	Accounts []Account `bson:"accounts" json:"accounts"`
-	VerificationStatus string `bson:"verificationStatus"`
+	// VerificationStatus string `bson:"verificationStatus"`
+	IsVerified bool `bson:"isVerified"`
+	IsPriority string `bson:"isPriority"`
 }

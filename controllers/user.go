@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/BMS/models"
-	"github.com/BMS/services"
+	"github.com/BMS/services/mongoServices"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -14,7 +14,7 @@ func User(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "request is invalid", "error": err.Error()})
 		return
 	}
-	err = services.InsertOneMethod("userData", user)
+	err = mongoServices.InsertOneMethod("userData", user)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "unable to insert data", "error": err.Error()})
 		return

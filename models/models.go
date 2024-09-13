@@ -15,7 +15,7 @@ type User struct{
 	LastName string  `bson:"lastname" json:"lastName" binding:"required"`
 }
 type FindUserRequest struct{
-	FirstName string `json:"firstName" binding:"omitempty"`
+	Email string `json:"email" binding:"omitempty"`
 }
 type MappedData struct{
 	VirtualNumber string `json:"virtualNumber" binding:"required"`

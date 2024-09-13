@@ -29,7 +29,7 @@ func SetRoutes() *gin.Engine{
 
 	authenticateForLongToken := route.Group("/longToken");
 	authenticateForLongToken.Use(middleware.AuthenticateForLongToken);
-	authenticateForLongToken.POST("/findOne",controllers.FindOne);
+	// authenticateForLongToken.POST("/findOne",controllers.FindOne);
 
 	//db intereaction servcies
 
@@ -39,6 +39,7 @@ func SetRoutes() *gin.Engine{
 	
 	route.POST("/findMany",controllers.FindManyUsers);
 
+	route.POST("/findOne",controllers.FindOne);
 	//temproary services
 	route.POST("/getOTPfromRedis",controllers.FetchOTPFromRedis);
 
