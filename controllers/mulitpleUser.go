@@ -17,7 +17,7 @@ func MultipleUser(ctx *gin.Context){
 	for _, user := range users{
 		data = append(data,user);
 	}
-	err = mongoServices.InsertManyMethod("userData", data);
+	err = mongoServices.InsertManyMethod("userCol", data);
 	if err != nil{
 		ctx.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"msg":"invalid data","error":err.Error()})
 		return;
