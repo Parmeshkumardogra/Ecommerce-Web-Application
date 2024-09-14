@@ -36,4 +36,5 @@ type Customer struct{
 	// VerificationStatus string `bson:"verificationStatus"`
 	IsVerified bool `bson:"isVerified"`
 	IsPriority string `bson:"isPriority"`
+	Role string `bson:"role"`
 }

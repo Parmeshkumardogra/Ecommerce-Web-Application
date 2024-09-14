@@ -18,7 +18,7 @@ func SetRoutes() *gin.Engine{
 
 	route.POST("/signUp",controllers.Signup);
 
-	route.POST("/generateShortToken",controllers.LoginToSendOTP);
+	route.POST("/login",controllers.LoginToSendOTP);
 
 	//shortToken authentication
 	authenticateOTPShortToken := route.Group("/otpTokenVerify");
@@ -42,6 +42,8 @@ func SetRoutes() *gin.Engine{
 	route.POST("/findOne",controllers.FindOne);
 	//temproary services
 	route.POST("/getOTPfromRedis",redisController.FetchOTPFromRedis);
+
+	route.POST("/verifyUserStatus",controllers.UserVerification);
 
 	return route;
 }

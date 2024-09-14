@@ -6,9 +6,11 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/BMS/config"
 	"github.com/BMS/database"
 	"github.com/BMS/routes"
-	"github.com/BMS/config"
+	"github.com/BMS/indexes"
 )
 
 func main() {
@@ -26,7 +28,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error in connecting to MongoDB: %v",err);
 	}
-
+	err = indexes.SetUpIndexes()
+	if err != nil {
+		log.Fatalf("Error while creating indexes: %v",err.Error());
+	}
 	router := routes.SetRoutes();
 	// start the server in a separate goroutine
 	go func(){
