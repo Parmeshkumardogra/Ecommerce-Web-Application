@@ -13,13 +13,13 @@ type Address struct{
 	Country string `bson:"country" json:"country"`
 }
 
-type Account struct{
-	AccountID primitive.ObjectID `bson:"accountID" json:"accountID"`
-	AccountType string `bson:"accountType" json:"accountType"`
-	Balance float64 `bson:"balance" json:"balance"`
-	OpenedOn time.Time `bson:"openedOn" json:"openedOn"`
-	Status string `bson:"status" json:"status"`
-}
+// type Account struct{
+// 	AccountID primitive.ObjectID `bson:"accountID" json:"accountID"`
+// 	AccountType string `bson:"accountType" json:"accountType"`
+// 	Balance float64 `bson:"balance" json:"balance"`
+// 	OpenedOn time.Time `bson:"openedOn" json:"openedOn"`
+// 	Status string `bson:"status" json:"status"`
+// }
 
 type Customer struct{
 	ID primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
@@ -32,7 +32,7 @@ type Customer struct{
 	DateOfBirth time.Time `bson:"dataOfBirth" json:"dateOfBirth"`
 	PasswordHash string `bson:"passwordHash" json:"password" binding:"required"`
 	// PasswordSalt string `bson:"passwordSalt" json:"passwordSalt"`
-	Accounts []Account `bson:"accounts" json:"accounts"`
+	// Accounts []Account `bson:"accounts" json:"accounts"`
 	// VerificationStatus string `bson:"verificationStatus"`
 	IsVerified bool `bson:"isVerified"`
 	IsPriority string `bson:"isPriority"`

@@ -11,7 +11,7 @@ import (
 
 var Client *mongo.Client
 
-func ConnectDB() error {
+func ConnectMongoDB() error {
 
 	clientOptions := options.Client().ApplyURI(config.Config.MongoURI)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -36,7 +36,7 @@ func ConnectDB() error {
 
 }
 
-func DisconnectDB(){
+func DisconnectMongoDB(){
 	log.Println("Attempting to disconnecting from MongoDB!");
 	if Client != nil{
 		ctx, cancel := context.WithTimeout(context.Background(),10 * time.Second);
@@ -49,6 +49,6 @@ func DisconnectDB(){
 			log.Println("Disconnected from MongoDB!")
 		}
 	}else{
-		log.Println("MongoDB client is nil, cannot disconnect.");
+		log.Println("MongoDB client is nil, cannot disconnect");
 	}
 }

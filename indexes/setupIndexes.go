@@ -29,6 +29,6 @@ func SetUpIndexes() error{
 		log.Fatalf("failed to create partial indexes %v",err.Error());
 		return err;
 	}
-	log.Println("Indexes ensured successfully")
+	log.Println("MongoDB Indexes ensured successfully!")
 	return nil;
 }

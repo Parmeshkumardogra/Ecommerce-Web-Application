@@ -22,15 +22,19 @@ func main() {
 	os.Setenv("GIN_MODE", "release");
 	err = database.ConnectRedis();
 	if err !=nil {
-		log.Fatalf("Error in connecting to Redis: %v",err);
+		log.Fatalf("Error in connecting to Redis: %v",err.Error());
 	}
-	err = database.ConnectDB();
+	err = database.ConnectMongoDB();
 	if err != nil {
-		log.Fatalf("Error in connecting to MongoDB: %v",err);
+		log.Fatalf("Error in connecting to MongoDB: %v",err.Error());
 	}
 	err = indexes.SetUpIndexes()
 	if err != nil {
 		log.Fatalf("Error while creating indexes: %v",err.Error());
+	}
+	err = database.ConnectMySQLDB();
+	if err != nil {
+		log.Fatalf("Error in connecting to MySQLDB: %v",err.Error());
 	}
 	router := routes.SetRoutes();
 	// start the server in a separate goroutine
@@ -48,5 +52,6 @@ func main() {
 
 	log.Println("Shutting down gracefully...")
 	database.DisconnectRedis();
-	database.DisconnectDB();
+	database.DisconnectMongoDB();
+	database.DisconnectMySQLDB();
 }
