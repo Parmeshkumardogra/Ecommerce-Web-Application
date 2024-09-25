@@ -7,6 +7,7 @@ type Config struct{
 }
 type collectionCodes struct{
 	MD01 string
+	MD02 string
 }
 type FindUserRequest struct{
 	Email string `json:"email" binding:"required"`

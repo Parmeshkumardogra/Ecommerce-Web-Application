@@ -1,4 +1,4 @@
-package controllers
+package loginController
 
 import (
 	"net/http"
@@ -12,8 +12,8 @@ import (
 )
 
 func Signup(ctx *gin.Context) {
-	priorityList := [3]string{"LW","MD","HG"};
-	var customer models.Customer;
+	// priorityList := [3]string{"LW","MD","HG"};
+	var customer models.UserCredentials;
 	err := ctx.ShouldBindJSON(&customer);
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"msg": "Invalid Payload", "error":err.Error()});
@@ -21,8 +21,8 @@ func Signup(ctx *gin.Context) {
 	}
 	customer.ID = primitive.NewObjectID();
 	customer.IsVerified = false;
-	customer.IsPriority = priorityList[0];
-	customer.Role = "customer"
+	// customer.IsPriority = priorityList[0];
+	// customer.Role = "customer"
 	var hashedPassword string;
 	hashedPassword, err = utils.HashPassword(customer.PasswordHash);
 	if err != nil {
