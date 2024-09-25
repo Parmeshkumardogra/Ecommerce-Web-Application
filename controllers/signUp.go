@@ -22,6 +22,7 @@ func Signup(ctx *gin.Context) {
 	customer.ID = primitive.NewObjectID();
 	customer.IsVerified = false;
 	customer.IsPriority = priorityList[0];
+	customer.Role = "customer"
 	var hashedPassword string;
 	hashedPassword, err = utils.HashPassword(customer.PasswordHash);
 	if err != nil {

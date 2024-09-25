@@ -1,4 +1,4 @@
-package controllers
+package redisController
 
 import (
 	"net/http"

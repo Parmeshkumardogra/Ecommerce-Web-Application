@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/BMS/controllers"
+	"github.com/BMS/controllers/redisController"
 	"github.com/BMS/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -17,7 +18,7 @@ func SetRoutes() *gin.Engine{
 
 	route.POST("/signUp",controllers.Signup);
 
-	route.POST("/generateShortToken",controllers.LoginToSendOTP);
+	route.POST("/login",controllers.LoginToSendOTP);
 
 	//shortToken authentication
 	authenticateOTPShortToken := route.Group("/otpTokenVerify");
@@ -33,7 +34,6 @@ func SetRoutes() *gin.Engine{
 
 	//db intereaction servcies
 
-	route.POST("/insertOne",controllers.User)
 	
 	route.POST("/insertMany",controllers.MultipleUser);
 	
@@ -41,7 +41,9 @@ func SetRoutes() *gin.Engine{
 
 	route.POST("/findOne",controllers.FindOne);
 	//temproary services
-	route.POST("/getOTPfromRedis",controllers.FetchOTPFromRedis);
+	route.POST("/getOTPfromRedis",redisController.FetchOTPFromRedis);
+
+	route.POST("/verifyUserStatus",controllers.UserVerification);
 
 	return route;
 }

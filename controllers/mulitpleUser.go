@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 func MultipleUser(ctx *gin.Context){
-	var users []models.User;
+	var users []models.FindUserRequest;
 	err := ctx.ShouldBindJSON(&users);
 	if err != nil{
 		ctx.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"msg":"invalid data","error":err.Error()})
@@ -17,7 +17,7 @@ func MultipleUser(ctx *gin.Context){
 	for _, user := range users{
 		data = append(data,user);
 	}
-	err = mongoServices.InsertManyMethod("userData", data);
+	err = mongoServices.InsertManyMethod("userCol", data);
 	if err != nil{
 		ctx.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"msg":"invalid data","error":err.Error()})
 		return;

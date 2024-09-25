@@ -18,7 +18,7 @@ func ConnectRedis() (error){
 		log.Fatalf("Could not connect to Redis: %v", err)
 		return err;
 	}
-	log.Println("Connected to Redis")
+	log.Println("Connected to Redis!")
 	return nil;
 }
 func DisconnectRedis() {
@@ -27,6 +27,6 @@ func DisconnectRedis() {
 	if err != nil {
 		log.Printf("Error disconnecting from Redis: %v", err)
 	} else {
-		log.Println("Disconnected from Redis")
+		log.Println("Disconnected from Redis!")
 	}
 }
