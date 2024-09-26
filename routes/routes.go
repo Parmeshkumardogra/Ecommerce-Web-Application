@@ -4,6 +4,9 @@ import (
 	"net/http"
 
 	"github.com/BMS/controllers"
+	accountcontroller "github.com/BMS/controllers/accountController"
+	"github.com/BMS/controllers/loginController"
+
 	"github.com/BMS/controllers/redisController"
 	"github.com/BMS/middleware"
 	"github.com/gin-gonic/gin"
@@ -16,21 +19,22 @@ func SetRoutes() *gin.Engine{
 		ctx.JSON(http.StatusOK,gin.H{"msg":"PONG"});
 	})
 
-	route.POST("/signUp",controllers.Signup);
+	route.POST("/signUp",loginController.Signup);
 
-	route.POST("/login",controllers.LoginToSendOTP);
+	route.POST("/login",loginController.LoginToSendOTP);
 
 	//shortToken authentication
 	authenticateOTPShortToken := route.Group("/otpTokenVerify");
 	authenticateOTPShortToken.Use(middleware.AuthenticateForShortToken);
-	authenticateOTPShortToken.POST("/verifyOTP", controllers.VerifyOTP);
+	authenticateOTPShortToken.POST("/verifyOTP", loginController.VerifyOTP);
 
 
 	//long token authentication
 
-	authenticateForLongToken := route.Group("/longToken");
+	authenticateForLongToken := route.Group("/authorised");
 	authenticateForLongToken.Use(middleware.AuthenticateForLongToken);
 	// authenticateForLongToken.POST("/findOne",controllers.FindOne);
+	authenticateForLongToken.POST("/createProfile",accountcontroller.CreateProfile);
 
 	//db intereaction servcies
 

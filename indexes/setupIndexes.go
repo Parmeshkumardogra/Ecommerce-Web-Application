@@ -12,6 +12,7 @@ import (
 )
 
 func SetUpIndexes() error{
+	//collection UserCredentials
 	col := database.Client.Database(config.Config.DBName).Collection(config.Config.CollectionName.MD01)
 	_, err := col.Indexes().CreateOne(context.Background(),mongo.IndexModel{
 		Keys: bson.D{{Key:"email", Value:1}},
@@ -29,6 +30,17 @@ func SetUpIndexes() error{
 		log.Fatalf("failed to create partial indexes %v",err.Error());
 		return err;
 	}
+	//collection UserDetails
+	col = database.Client.Database(config.Config.DBName).Collection(config.Config.CollectionName.MD02);
+	_, err = col.Indexes().CreateOne(context.Background(),mongo.IndexModel{
+		Keys: bson.D{{Key: "email",Value: 1}},		
+		Options: options.Index().SetUnique(true),
+	});
+	if err != nil {
+		log.Fatalf("failed to create unique indexes %v",err.Error());
+		return err;
+	}
+
 	log.Println("MongoDB Indexes ensured successfully!")
 	return nil;
 }
