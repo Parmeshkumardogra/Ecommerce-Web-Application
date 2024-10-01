@@ -10,17 +10,17 @@ func GenerateUniqueAccountNo(accountType string) string{
 
 	now := time.Now();
 	timePart :=  now.Format("20060102150405");
-	nanoPart := strconv.Itoa(now.Nanosecond())[0:3];
+	nanoPart := strconv.Itoa(now.Nanosecond())[0:4];
 	var accountCode string;
 	switch accountType {
 	case "saving":
-		accountCode = "SAV";
+		accountCode = "SV";
 	case "credit":
-		accountCode = "CRE";
+		accountCode = "CR";
 	case "current":
-		accountCode = "CUR";
+		accountCode = "CU";
 	case "fixed":
-		accountCode = "FIX";
+		accountCode = "FD";
 	default:
 		return accountCode;
 	}

@@ -35,6 +35,7 @@ func SetRoutes() *gin.Engine{
 	authenticateForLongToken.Use(middleware.AuthenticateForLongToken);
 	// authenticateForLongToken.POST("/findOne",controllers.FindOne);
 	authenticateForLongToken.POST("/createProfile",accountcontroller.CreateProfile);
+	authenticateForLongToken.POST("/createAccount",accountcontroller.CreateSavingAccount);
 
 	//db intereaction servcies
 
